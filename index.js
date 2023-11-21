@@ -6,6 +6,7 @@ function formatDate(inputDate) {
     return formattedDate;
 }
 
+/ In the restrict function, change textContent to alert for age restriction
 function restrict() {
     var dateInput = document.getElementById("dob");
     var selectedDate = new Date(dateInput.value);
@@ -15,6 +16,19 @@ function restrict() {
 
     if (selectedDate < minD || selectedDate > maxD) {
         alert("Age should be between " + formatDate(dateInput.min) + " and " + formatDate(dateInput.max));
+    }
+}
+
+// Uncomment the email validation function
+function validateEmail() {
+    const emailInput = document.getElementById('email');
+    const email = emailInput.value;
+    const emailPattern = /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/;
+
+    if (emailPattern.test(email)) {
+        document.getElementById('validationResult').textContent = "";
+    } else {
+        document.getElementById('validationResult').textContent = "Email is not valid.";
     }
 }
 
