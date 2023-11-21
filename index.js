@@ -6,7 +6,6 @@ function formatDate(inputDate) {
     return formattedDate;
 }
 
-/ In the restrict function, change textContent to alert for age restriction
 function restrict() {
     var dateInput = document.getElementById("dob");
     var selectedDate = new Date(dateInput.value);
@@ -15,20 +14,9 @@ function restrict() {
     var minD = new Date(dateInput.min);
 
     if (selectedDate < minD || selectedDate > maxD) {
-        alert("Age should be between " + formatDate(dateInput.min) + " and " + formatDate(dateInput.max));
-    }
-}
-
-// Uncomment the email validation function
-function validateEmail() {
-    const emailInput = document.getElementById('email');
-    const email = emailInput.value;
-    const emailPattern = /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/;
-
-    if (emailPattern.test(email)) {
-        document.getElementById('validationResult').textContent = "";
+        document.getElementById('dob').textContent = "Age should be between " + formatDate(dateInput.min) + " and " + formatDate(dateInput.max);
     } else {
-        document.getElementById('validationResult').textContent = "Email is not valid.";
+        document.getElementById('dob').textContent = "";
     }
 }
 
@@ -75,21 +63,22 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function loadUserEntries() {
-        const userEntries = JSON.parse(localStorage.getItem("userEntries")) || [];
-        clearTable(); // Clear existing entries
+    const userEntries = JSON.parse(localStorage.getItem("userEntries")) || [];
+    clearTable(); // Clear existing entries
 
-        userEntries.forEach(({ name, email, pwd, dob, terms }) => {
-            const newRow = userTableBody.insertRow();
-            newRow.innerHTML = `<td>${name}</td><td>${email}</td><td>${pwd}</td><td>${dob}</td><td>${terms}</td>`;
-        });
-    }
+    userEntries.forEach(({ name, email, pwd, dob, terms }) => {
+        const newRow = userTableBody.insertRow();
+        newRow.innerHTML = `<td>${name}</td><td>${email}</td><td>${pwd}</td><td>${dob}</td><td>${terms}</td>`;
+    });
+}
 
-    function clearTable() {
-        const userTableBody = document.getElementById("userTableBody");
-        while (userTableBody.firstChild) {
-            userTableBody.removeChild(userTableBody.firstChild);
-        }
+function clearTable() {
+    const userTableBody = document.getElementById("userTableBody");
+    while (userTableBody.firstChild) {
+        userTableBody.removeChild(userTableBody.firstChild);
     }
+}
+
 
     function saveUserEntry(name, email, pwd, dob, terms) {
         const userEntries = JSON.parse(localStorage.getItem("userEntries")) || [];
